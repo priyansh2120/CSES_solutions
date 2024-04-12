@@ -1,3 +1,4 @@
+// https : // cses.fi/problemset/task/1090
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long int ll;
@@ -45,36 +46,33 @@ ll lcm(int a, int b) { return a * b / gcd(a, b); }
 
 void solve()
 {
-    int n, m, k;
-    cin >> n >> m >> k;
-    vector<int> peeps(n);
-    vector<int> apps(m);
-    for (int i = 0; i < n; i++)
-        cin >> peeps[i];
-    for (int i = 0; i < m; i++)
-        cin >> apps[i];
-    sort(peeps.begin(), peeps.end());
-    sort(apps.begin(), apps.end());
-    int ans = 0;
-    int i = 0, j = 0;
-    while (i < n && j < m)
+    ll n, x;
+    cin >> n >> x;
+    VI v;
+    vin(v, n);
+    ll ans = 0;
+    vsort(v);
+    ll i = 0;
+    ll j = n - 1;
+    while (j > i)
     {
-        if (abs(peeps[i] - apps[j]) <= k)
+        if (v[i] + v[j] <= x)
         {
             ans++;
             i++;
-            j++;
+            j--;
         }
-        else if (peeps[i] < apps[j])
+        else if (v[i] + v[j] > x)
         {
-            i++;
-        }
-        else
-        {
-            j++;
+            j--;
+            ans++;
         }
     }
-    cout << ans;
+    if (i == j)
+    {
+        ans++;
+    }
+    cout << ans << endl;
 }
 
 int main()
